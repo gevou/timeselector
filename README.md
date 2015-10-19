@@ -39,6 +39,19 @@ Template.MyTemplate.helpers({
   var selectedTime = $('.time-selector').attr('data-value');
 ```
 
+# Capturing add/subtract events
+
+timeSelector triggers a `timeSelectorChange` event every time the user clicks the `+` or `-` buttons. You can capture the event in your template event map as follows:
+
+```js
+Template.MyTemplate.events({
+  'timeSelectorChange', function (e, tmpl, options) {
+    // currently selected time is available in the options parameter
+
+    var selectedTime = options.time; // this is a moment js object
+  } 
+}) 
+
 # Set/Reset the currently selected time programmatically 
 
 ```js
