@@ -1,0 +1,55 @@
+$width: 100%;
+$left: $width - 75%;
+$right: $width - 75%;
+$bckcolor: lightgray;
+$bckcolor-hover: gray;
+$timecolor: #2196F3;
+$datecolor: rgba(33, 150, 243, 0.47);
+$disabled-color: lightgray;
+
+
+.time-selector {
+  // position: relative;
+  width: $width;
+  .add-btn, .subtract-btn {
+    position: relative;
+    width: $width;
+    height: 50px;
+    background-color: $bckcolor;
+  }
+  .add-btn:hover, .subtract-btn:hover {
+    background-color: $bckcolor-hover;
+  }
+  .disabled.add-btn, .disabled.subtract-btn, .disabled.add-btn:hover, .disabled.subtract-btn:hover {
+    color: $disabled-color; 
+    background-color: lightgray;
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,.5) 10px, rgba(255,255,255,.5) 20px);
+  }
+  .time {
+    position: relative;
+    text-align: center;
+    font-size: 2.5em;
+    color: $timecolor
+  }
+  .date {
+    position: relative;
+    text-align: center;
+    font-size: 1.2em;
+    color: $datecolor;
+    margin-top: 10px;
+  }
+  .disabled.time, .disabled.date {
+    color: $disabled-color;
+  }
+  i {
+    position: absolute;
+    left: $left;
+    margin-top: 10px;
+  }
+  .btn-label {
+    position: absolute;
+    right: $right;    
+    margin-top: 10px;
+    font-size: 1.5em;
+  }
+}

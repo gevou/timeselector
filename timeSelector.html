@@ -1,0 +1,13 @@
+<template name="timeSelector">
+  <div class="time-selector" data-value={{time}}>
+    <div> 
+      <a class="btn add-btn {{disabledClass}}" href="" data-action="add"><i class="fa fa-plus"></i><span class="btn-label">{{step}}'</span></a>
+    </div>
+    <div class="date {{disabledClass}}">{{date}}</div>
+
+    <div class="time {{disabledClass}}">{{time}}</div>
+    <div> 
+      <a class="btn subtract-btn {{disabledClass}}" href="" data-action="subtract"><i class="fa fa-minus"></i><span class="btn-label">{{step}}'</span></a>
+    </div>
+  </div>
+</template>
