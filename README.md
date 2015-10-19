@@ -15,7 +15,7 @@ You can easily pass a number of options as part of the component's data context.
 
 ```html
 <template name="MyTemplate">
-  {{>timeSelector data=myOptions}}
+  {{>timeSelector myOptions}}
 </template>
 ```
 
