@@ -51,6 +51,7 @@ Template.MyTemplate.events({
     var selectedTime = options.time; // this is a moment js object
   } 
 }) 
+```
 
 # Set/Reset the currently selected time programmatically 
 
