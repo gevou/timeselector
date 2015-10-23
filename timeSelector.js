@@ -62,6 +62,10 @@ Template.timeSelector.onDestroyed(function() {
 });
 
 Template.timeSelector.helpers({
+  showDate: function () {
+    var tmpl = Template.instance();
+    return tmpl.showDate;
+  },
   class: function () {
     return false;
   },
