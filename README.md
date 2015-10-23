@@ -23,6 +23,7 @@ You can easily pass a number of options as part of the component's data context.
 Template.MyTemplate.helpers({
   myOptions: function() {
     return {
+      id: 'myTimeSelector', // A unique Id for this time selector  
       min: '09:00', // (optional) minimum allowed time. (Default 00:00)
       max: '17:00', // (optional) maximum allowed time. (Default 23:59)
       step: 30, // (optional) step in minutes. (Default 15 minutes)
@@ -36,6 +37,25 @@ Template.MyTemplate.helpers({
 
 # Retrieve the currently selected time
 
+Rectively using the `TimeSelector.getTime(id)` method which returns a moment.js object:
+
+```js
+  var selectedTime = TimeSelector.getTime('myTimeSelector');
+```
+
+`getTime` is a reactive source so you can use it to reactively trigger helper and autorun updates, e.g.: 
+
+```js
+Template.MyTemplate.helpers({
+  'timeIsLate': function() {
+    var selectedTime = TimeSelector.getTime('myTimeSelector');
+    var latest = moment('17:00','hh:mm');
+    return selectedTime.isAfter(latest); // will update everytime time selector changes. 
+  }
+});
+```
+
+By reading the DOM element attribute. The value is in `hh:mm` format:
 ```js
   var selectedTime = $('.time-selector').attr('data-value');
 ```
@@ -56,13 +76,20 @@ Template.MyTemplate.events({
 
 # Set/Reset the currently selected time programmatically 
 
+Through the `TimeSelector.updateTime(id, time)` method:
 ```js
-  var newTime = moment('22:00','hh:mm');
+  var newTime = '22:00'; // use moment('22:00','hh:mm') if you want to convert a moment() object
+  TimeSelector.updateTime('myTimeSelector', newTime);
+```
+
+By triggering the `resetTimer` jquery event:
+```js
+  var newTime = '22:00'; // use moment('22:00','hh:mm') if you want to convert a moment() object
   $('.time-selector').trigger('resetTimer', newTime);
 ```
 
 # Using multiple simultaneous time selectors
 
-Wrap the selectors in separate divs of separate sub-templates in order to be able to easily define selectors or use `Template.instance()` for retrieving the currently selected time and setting/reseting the currently selected time programmatically.
+Wrap the selectors in separate divs to easily define individual selectors or in separate sub-templates and use `Template.instance()` for retrieving the currently selected time and setting/reseting the currently selected time programmatically.
 
 example TBA

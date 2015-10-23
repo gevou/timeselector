@@ -1,14 +1,31 @@
-// initial: moment()
-// min: moment()
-// max: moment() 
-// step: minutes (see moment documentation)
+_TimeSelector = function () {
+  var dep = new Tracker.Dependency();
+  var _selectedTime = {};
+
+  return {
+    updateTime: function (id, time) {
+      id && time && ( _selectedTime[id] = time );
+      dep.changed();
+    },
+    deleteTime: function (id) {
+      id && time && _selectedTime[id] && delete _selectedTime[id];
+      dep.changed();
+    },
+    getTime: function (id) {
+      var selectedTime = id && _selectedTime[id].clone();
+      dep.depend();
+      return selectedTime;
+    }
+  }
+}
+
+TimeSelector = new _TimeSelector();
 
 Template.timeSelector.onCreated(function() {
-
   var tmpl = this;
 
-  tmpl.time = ReactiveVar();
   tmpl.active = ReactiveVar();
+  tmpl.id = null;
 
   tmpl.initial = tmpl.data.initial ? moment(tmpl.data.initial, "hh:mm") : moment();
 
@@ -20,6 +37,7 @@ Template.timeSelector.onCreated(function() {
       tmpl.max = data.max ? moment(data.max,"hh:mm") : moment("23:59","hh:mm");
       tmpl.locale = data.locale ? data.locale : 'en';
       tmpl.step = +data.step || 15;
+      tmpl.id = data.id ? data.id : Random.id();
       tmpl.showDate = data.showDate ? data.showDate : true;
 
       // make calculations easier
@@ -32,10 +50,15 @@ Template.timeSelector.onCreated(function() {
         tmpl.active.set(true);
       else
         tmpl.active.set(data.active);
+
+      TimeSelector.updateTime(tmpl.id, _.clone(tmpl.initial));
     }
   });
+});
 
-  tmpl.time.set(_.clone(tmpl.initial));
+Template.timeSelector.onDestroyed(function() {
+  var tmpl = this;
+  TimeSelector.deleteTime(tmpl.id);
 });
 
 Template.timeSelector.helpers({
@@ -44,11 +67,13 @@ Template.timeSelector.helpers({
   },
   time: function () {
     var tmpl = Template.instance();
-    return tmpl.time.get().format('HH:mm');
+    var time = TimeSelector.getTime(tmpl.id); 
+    return time && time.format('HH:mm');
   },
   date: function () {
     var tmpl = Template.instance();
-    return tmpl.time.get().format('ddd DD MMM');    
+    var time = TimeSelector.getTime(tmpl.id); 
+    return time && time.format('ddd DD MMM');
   },
   disabledClass: function () {
     var tmpl = Template.instance();
@@ -58,14 +83,17 @@ Template.timeSelector.helpers({
 
 Template.timeSelector.events({
   'resetTimer': function (e, tmpl, time) {
-    tmpl.time.set(time);
+    TimeSelector.updateTime(tmpl.id, time);
     return false;
   },
   'click [data-action="add"], click [data-action="subtract"]': function (e, tmpl) {
     e.preventDefault();
 
     if (tmpl.active.get()) {
-      var time = _.clone(tmpl.time.get());
+      var time = _.clone(TimeSelector.getTime(tmpl.id));
+
+      if (! time)
+        return;
 
       var isAdd = (e.currentTarget.dataset.action === "add");
       var isSubtract = (e.currentTarget.dataset.action === "subtract");
@@ -87,7 +115,8 @@ Template.timeSelector.events({
         }
       }
 
-      tmpl.time.set(time);
+      TimeSelector.updateTime(tmpl.id, time);
+
       tmpl.$(e.target).trigger('timeSelectorChange', {time: time, id: this.id});
     }
     return false;

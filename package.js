@@ -1,6 +1,6 @@
 Package.describe({
   name: 'gevou:timeselector',
-  version: '1.0.0_2',
+  version: '1.0.1',
   // Brief, one-line summary of the package.
   summary: 'A time selector UI component for Meteor',
   // URL to the Git repository containing the source code for this package.
@@ -13,10 +13,7 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.2.0.2');
   api.use('ecmascript');
-  api.use(['blaze', 'templating', 'underscore', 'jquery'], 'client');
-
-  api.use('reactive-var');
-  api.imply('reactive-var');
+  api.use(['blaze', 'templating', 'underscore', 'jquery', 'random', 'reactive-var', 'reactive-dict', 'tracker'], 'client');
 
   api.use('fourseven:scss@3.3.3_3');  
   api.imply('fourseven:scss');
@@ -33,6 +30,8 @@ Package.onUse(function(api) {
   api.addFiles('timeselector.scss','client');
   api.addFiles('timeselector.html','client');
   api.addFiles('timeselector.js','client');
+
+  api.export('TimeSelector');
 });
 
 Package.onTest(function(api) {
