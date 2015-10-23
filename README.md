@@ -28,6 +28,7 @@ Template.MyTemplate.helpers({
       step: 30, // (optional) step in minutes. (Default 15 minutes)
       locale: 'en', // (optional) moment.js locale for displayed date/time (Default 'en')
       active: true // (optional) enable (true) or disable (false) input (Default 'true') 
+      showDate: true // (optional) show current date (Default 'true')
     };
   }
 });

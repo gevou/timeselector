@@ -1,6 +1,6 @@
 Package.describe({
   name: 'gevou:timeselector',
-  version: '1.0.0_1',
+  version: '1.0.0_2',
   // Brief, one-line summary of the package.
   summary: 'A time selector UI component for Meteor',
   // URL to the Git repository containing the source code for this package.

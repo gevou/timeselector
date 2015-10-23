@@ -20,6 +20,7 @@ Template.timeSelector.onCreated(function() {
       tmpl.max = data.max ? moment(data.max,"hh:mm") : moment("23:59","hh:mm");
       tmpl.locale = data.locale ? data.locale : 'en';
       tmpl.step = +data.step || 15;
+      tmpl.showDate = data.showDate ? data.showDate : true;
 
       // make calculations easier
       tmpl.min.add(tmpl.step,'minutes');
