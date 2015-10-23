@@ -87,9 +87,3 @@ By triggering the `resetTimer` jquery event:
   var newTime = '22:00'; // use moment('22:00','hh:mm') if you want to convert a moment() object
   $('.time-selector').trigger('resetTimer', newTime);
 ```
-
-# Using multiple simultaneous time selectors
-
-Wrap the selectors in separate divs to easily define individual selectors or in separate sub-templates and use `Template.instance()` for retrieving the currently selected time and setting/reseting the currently selected time programmatically.
-
-example TBA
