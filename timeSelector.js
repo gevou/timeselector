@@ -121,7 +121,7 @@ Template.timeSelector.events({
 
       TimeSelector.updateTime(tmpl.id, time);
 
-      tmpl.$(e.target).trigger('timeSelectorChange', {time: time, id: this.id});
+      tmpl.$(e.target).trigger('timeSelectorChange', {time: time, id: tmpl.id});
     }
     return false;
   }  

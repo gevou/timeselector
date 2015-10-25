@@ -67,9 +67,10 @@ timeSelector triggers a `timeSelectorChange` event every time the user clicks th
 ```js
 Template.MyTemplate.events({
   'timeSelectorChange', function (e, tmpl, options) {
-    // currently selected time is available in the options parameter
+    // the options parameter contains the modified time value and the id of the affected timeselector. 
 
-    var selectedTime = options.time; // this is a moment js object
+    var selectedTime = options.time; // moment js object
+    var timeSelectorId = options.id; // the id of the element as specified by the attached data context
   } 
 }) 
 ```
