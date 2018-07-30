@@ -11,7 +11,7 @@ A UI component built primarily for input on mobile devices but usable everywhere
 meteor add gevou:timeselector
 ```
 
-You can easily pass a number of options as part of the component's data context. The data context is retrieved reactively i.e. if any of the options change after rendering the template the component will be updated and re-rendered accordingly.  
+You can pass a number of options as part of the component's data context. The data context is retrieved reactively i.e. if any of the options change after rendering the template the component will be updated and re-rendered accordingly.  
 
 ```html
 <template name="MyTemplate">
